@@ -193,3 +193,4 @@ if($showIntro == TRUE){
     </div>
 </div> 
 </form>
+<p>&nbsp;</p>
