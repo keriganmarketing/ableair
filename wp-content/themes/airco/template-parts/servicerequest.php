@@ -63,9 +63,8 @@ if($_POST && $_POST['secu'] == '' && $_POST['cmd'] == 'servreq'){
 	$receiptheadline = 'Your service request';
 	
 	$sendadmin = array(
-//		'to'		=> '',
-		'to'		=> 'daron@kerigan.com',
-		'from'		=> 'Atlanta Air Company <noreply@atlantaaircompany.com>',
+		'to'		=> 'ableair@gmail.com',
+		'from'		=> 'Atlanta Air Company <noreply@mg.ableheatingandair.com>',
 		'subject'	=> $headline,
 		'bcc'		=> 'support@kerigan.com',
         'replyto'		=> $_POST['youremail']
@@ -73,7 +72,7 @@ if($_POST && $_POST['secu'] == '' && $_POST['cmd'] == 'servreq'){
 	
 	$sendreceipt = array(
 		'to'		=> $_POST['youremail'],
-		'from'		=> 'Atlanta Air Company <noreply@atlantaaircompany.com>',
+		'from'		=> 'Atlanta Air Company <noreply@mg.ableheatingandair.com>',
 		'subject'	=> $receiptheadline,
 		'bcc'		=> 'support@kerigan.com'
 	);
