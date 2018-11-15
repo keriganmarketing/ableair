@@ -29,7 +29,7 @@ get_header(); ?>
                             endwhile; // End of the loop.
                             ?>
                             <div class="cta">
-                                <a href="/book-now/" class="btn book-btn">Schedule a system checkup</a>
+                                <a href="/book-now/" class="btn book-btn">Schedule Service Online</a>
                             </div>
                         </div>
                     </div>
