@@ -103,6 +103,28 @@ get_header(); ?>
                         <?php } ?>
                     </div>
                 </div>
+                <div id="affiliate-logo-section">
+                <div class="row just-fy-content-center align-items-center">
+                    <?php $affiliates = [
+                        'aprilaire',
+                        'bryant',
+                        'carrier',
+                        'honeywell',
+                        'mitsubishi',
+                        'rheem'
+                    ]; 
+                    
+                    foreach($affiliates as $affilliate){ ?>
+                        <div class="col-auto">
+                        <img
+                         class="img-fluid"
+                         src="/wp-content/themes/airco/img/<?php echo $affilliate; ?>"
+                         alt="<?php echo $affilliate; ?>" 
+                         >
+                        </div>
+                    <?php } ?>
+                    </div>
+                </div>
             </div>
             <div id="about" class="pad-anchor"></div>
             <div class="row map-bg">
