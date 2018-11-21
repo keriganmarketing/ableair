@@ -118,7 +118,7 @@ get_header(); ?>
                         <div class="col-auto">
                         <img
                          class="img-fluid"
-                         src="/wp-content/themes/airco/img/<?php echo $affilliate; ?>"
+                         src="/wp-content/themes/airco/img/<?php echo $affilliate; ?>.png"
                          alt="<?php echo $affilliate; ?>" 
                          >
                         </div>
