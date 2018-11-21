@@ -104,7 +104,7 @@ get_header(); ?>
                     </div>
                 </div>
                 <div id="affiliate-logo-section">
-                <div class="row just-fy-content-center align-items-center">
+                <div class="row justify-content-center align-items-center">
                     <?php $affiliates = [
                         'aprilaire',
                         'bryant',
@@ -115,7 +115,7 @@ get_header(); ?>
                     ]; 
                     
                     foreach($affiliates as $affilliate){ ?>
-                        <div class="col-auto">
+                        <div class="col-auto px-2">
                         <img
                          class="img-fluid"
                          src="/wp-content/themes/airco/img/<?php echo $affilliate; ?>.png"
