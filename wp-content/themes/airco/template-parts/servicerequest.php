@@ -1,6 +1,44 @@
 <?php //Service Request
 $debug = FALSE; //for special debugging purposes :)
 date_default_timezone_set('America/New York');
+
+function getIP() {
+	$client  = @$_SERVER['HTTP_CLIENT_IP'];
+	$forwarded = @$_SERVER['HTTP_X_FORWARDED_FOR'];
+	$remote  = $_SERVER['REMOTE_ADDR'];
+
+	if (filter_var($client, FILTER_VALIDATE_IP)) {
+		return $client;}
+	elseif (filter_var($forward, FILTER_VALIDATE_IP)) {
+		return $forward;}
+	else {
+		return $remote;}
+}
+
+function checkSpam($dataSubmitted) {
+	$client = new \Gothick\AkismetClient\Client(
+		site_url(),           // Your website's URL (this becomes Akismet's "blog" parameter)
+		"KMA Spam Checker",   // Your website or app's name (Used in the User-Agent: header when talking to Akismet)
+		"1.0",                // Your website or app's software version (Used in the User-Agent: header when talking to Akismet)
+		akismet_get_key()     
+	);
+
+	$result = $client->commentCheck([
+		'user_ip'              => $dataSubmitted['ip_address'],
+		'user_agent'           => $dataSubmitted['user_agent'],
+		'referrer'             => $dataSubmitted['referrer'],
+		'comment_author'       => $dataSubmitted['fname'] . ' ' . $dataSubmitted['lname'],
+		'comment_author_email' => $dataSubmitted['youremail'],
+		'comment_content'      => $dataSubmitted['additionalinfo']
+	], $_SERVER);
+
+	$spam = $result->isSpam();
+
+	echo $spam;
+
+	return $spam; // Boolean 
+}
+	
 if($_POST && $_POST['secu'] == '' && $_POST['cmd'] == 'servreq'){ 
 	
 	$ph1 = $_POST['phone1'];
@@ -59,20 +97,29 @@ if($_POST && $_POST['secu'] == '' && $_POST['cmd'] == 'servreq'){
 		$zipformattedbadly = TRUE;
 		$adderror .= '<li>Zip code requires numbers.</li>';
 	}
+	if (function_exists('akismet_verify_key') && !empty(akismet_get_key())){
+		$isSpam = checkSpam($_POST);
+		echo $isSpam;
+		if($isSpam){
+			$passCheck = FALSE;
+			$adderror .= '<li>Spam is not accepted here.</li>';
+		}
+	}
+
 	$headline = 'Service requested from website';
 	$receiptheadline = 'Your service request';
 	
 	$sendadmin = array(
 		'to'		=> 'ableairac@gmail.com',
-		'from'		=> 'Atlanta Air Company <noreply@mg.ableheatingandair.com>',
+		'from'		=> 'Able Heating & Air Company <noreply@mg.ableheatingandair.com>',
 		'subject'	=> $headline,
 		'bcc'		=> 'support@kerigan.com',
-        'replyto'		=> $_POST['youremail']
+        'replyto'	=> $_POST['youremail']
 	);
 	
 	$sendreceipt = array(
 		'to'		=> $_POST['youremail'],
-		'from'		=> 'Atlanta Air Company <noreply@mg.ableheatingandair.com>',
+		'from'		=> 'Able Heating & Air Company <noreply@mg.ableheatingandair.com>',
 		'subject'	=> $receiptheadline,
 		'bcc'		=> 'support@kerigan.com'
 	);
@@ -144,6 +191,9 @@ if($showIntro == TRUE){
 }
 ?>
 <form class="form" enctype="multipart/form-data" method="post">
+<input type="hidden" name="user_agent" value="<?php echo $_SERVER['HTTP_USER_AGENT']; ?>" >
+<input type="hidden" name="ip_address" value="<?php echo getIP(); ?>" >
+<input type="hidden" name="referrer" value="<?php echo $_SERVER['HTTP_REFERER']; ?>" >
 <div class="row">
     <div class="col-sm-6">
     	<div class="row">

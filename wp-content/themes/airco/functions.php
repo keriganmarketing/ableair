@@ -7,6 +7,7 @@
  * @package airco
  */
 
+require('vendor/autoload.php');
 require_once('inc/cpt.php'); //Include CPT class
 require_once('inc/leads.php'); //Include Leads class
 
