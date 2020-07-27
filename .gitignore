@@ -8,3 +8,7 @@ tags
 **/cache
 # Untracked prod/dev files
 wp-config.php
+/wp-admin
+/wp-includes
+/wp-content/uploads
+/wp-content/plugins
