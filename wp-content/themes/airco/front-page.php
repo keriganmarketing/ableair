@@ -107,7 +107,6 @@ get_header(); ?>
                 <div class="row justify-content-center align-items-center">
                     <?php $affiliates = [
                         'aprilaire',
-                        'bryant',
                         'carrier',
                         'honeywell',
                         'mitsubishi',
